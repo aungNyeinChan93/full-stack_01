@@ -1,0 +1,31 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+  // output   = "../generated/prisma"
+  output   = "../src/generated"
+}
+
+model Customer {
+  id    Int          @id @default(autoincrement())
+  name  String
+  email String       @unique
+  type  CustomerType @default(normal)
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@map("customers")
+}
+
+enum CustomerType {
+  normal
+  silver
+  gold
+  platinum
+  diamond
+  ruby
+}
