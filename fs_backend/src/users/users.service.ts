@@ -6,6 +6,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { Prisma } from '@prisma/client';
 import { UserWithPosts } from './types/users.types';
 import { UserPagination } from './types/user-pagination.types';
+import { connect } from 'http2';
 
 @Injectable()
 export class UsersService {
@@ -15,7 +16,7 @@ export class UsersService {
 
   async create(createUserDto: Prisma.UserCreateInput): Promise<UserWithPosts> {
     const user = await this.prisma.user.create({
-      data: { ...createUserDto, age: Number(createUserDto?.age) },
+      data: { ...createUserDto, age: Number(createUserDto?.age), userPrefrence: { create: { emailVefify: false } } },
       include: { posts: true },
     })
     return user
@@ -42,7 +43,6 @@ export class UsersService {
       ]
     } : undefined;
 
-
     const users = await this.prisma.user.findMany({
       where,
       include: { posts: true },
@@ -50,9 +50,7 @@ export class UsersService {
       skip,
       orderBy: { created_at: 'desc' }
     });
-
     return { currentPage, totalPage, limit, items: users, totalItem: users?.length } as UserPagination<UserWithPosts>
-
   }
 
   async findOne(id: string): Promise<UserWithPosts> {
