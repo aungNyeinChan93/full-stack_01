@@ -1,0 +1,69 @@
+# Node modules
+node_modules/
+.pnp/
+.pnp.js
+
+# Build outputs
+dist/
+build/
+out/
+!.gitkeep
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Runtime data
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE / editor
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# Test coverage
+coverage/
+.nyc_output/
+
+# Cache
+.cache/
+.tmp/
+.parcel-cache/
+.next/
+.nuxt/
+.cache-loader
+.babel-cache/
+
+# Compiled files
+*.tsbuildinfo
+*.js.map
+*.css.map
+
+# Package manager lock files (optional: uncomment if you don't want to commit them)
+# package-lock.json
+# yarn.lock
+# pnpm-lock.yaml
+
+# Misc
+*.sqlite
+*.sqlite3
+*.log.*
+.sass-cache/
+serverless-state.json
