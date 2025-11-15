@@ -27,3 +27,59 @@ enum CustomerType {
   diamond
   ruby
 }
+
+model User {
+  id               String         @id @default(uuid())
+  age              Int?
+  name             String
+  email            String         @unique
+  role             UserRole       @default(guest)
+  userPrefrence    UserPrefrence? @relation(fields: [userPrefrence_id], references: [id])
+  userPrefrence_id String?        @unique
+  posts            Post[]
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@map("users")
+}
+
+enum UserRole {
+  guest
+  user
+  admin
+}
+
+model UserPrefrence {
+  id          String  @id @default(uuid())
+  user        User?
+  emailVefify Boolean
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
+
+model Post {
+  id         String     @id @default(uuid())
+  title      String
+  body       String
+  user       User       @relation(fields: [author_id], references: [id])
+  author_id  String
+  categories Category[]
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@map("posts")
+}
+
+model Category {
+  id    String @id @default(uuid())
+  name  String @unique
+  posts Post[]
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@map("ccategories")
+}
