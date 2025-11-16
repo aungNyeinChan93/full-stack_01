@@ -1,5 +1,6 @@
 "use client";
 
+import { createUser } from "@/features/users/users";
 import { QueryClient, useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import React, { ChangeEvent, FormEvent, useState } from "react";
@@ -20,22 +21,7 @@ const UserCreate = () => {
   };
 
   const { mutate, data, error, isPending } = useMutation({
-    mutationFn: async (newUser: typeof form) => {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND}/api/v1/users`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(newUser),
-        }
-      );
-      if (!res.ok) {
-        throw new Error("Failed to create user");
-      }
-      return res.json();
-    },
+    mutationFn: (newUser: typeof form) => createUser(newUser),
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["users"] }),
   });
 
