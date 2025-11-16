@@ -11,12 +11,13 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) { }
 
   @Post()
-  @SkipThrottle({ short: false })
+  @SkipThrottle({ default: false })
   create(@Body(ValidationPipe) createUserDto: CreateUserDto) {
     return this.usersService.create(createUserDto);
   }
 
   @Get()
+  @SkipThrottle({ default: false })
   findAll(@Query(ValidationPipe) userPaginationDto: UserPaginationDto) {
     return this.usersService.findAll(userPaginationDto);
   }

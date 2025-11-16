@@ -1,12 +1,13 @@
-import { UserPaginationDto } from './dto/user-pagination.dto';
 /* eslint-disable prettier/prettier */
+
+
+import { UserPaginationDto } from './dto/user-pagination.dto';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { Prisma } from '@prisma/client';
 import { UserWithPosts } from './types/users.types';
 import { UserPagination } from './types/user-pagination.types';
-import { connect } from 'http2';
 
 @Injectable()
 export class UsersService {

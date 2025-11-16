@@ -27,7 +27,7 @@ import { APP_GUARD } from '@nestjs/core';
       {
         name: 'short',
         ttl: 60000,
-        limit: 3
+        limit: 30
       },
       {
         name: 'long',
