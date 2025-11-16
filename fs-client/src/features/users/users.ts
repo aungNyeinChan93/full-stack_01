@@ -23,9 +23,10 @@ export async function createUser(newUser: { name: string, email: string }) {
             body: JSON.stringify(newUser),
         }
     );
+    const result = await res.json();
     if (!res.ok) {
-        throw new Error("Failed to create user");
+        throw new Error(JSON.stringify(result, null, 2));
     }
-    return res.json();
+    return await result
 }
 

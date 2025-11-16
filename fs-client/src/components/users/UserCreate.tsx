@@ -13,17 +13,17 @@ const UserCreate = () => {
     email: "",
   });
 
+  const { mutate, data, error, isPending } = useMutation({
+    mutationFn: (newUser: typeof form) => createUser(newUser),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["users"] }),
+  });
+
   const formSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     mutate(form);
     setForm({ name: "", email: "" });
     return router.push("/users");
   };
-
-  const { mutate, data, error, isPending } = useMutation({
-    mutationFn: (newUser: typeof form) => createUser(newUser),
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["users"] }),
-  });
 
   return (
     <React.Fragment>
