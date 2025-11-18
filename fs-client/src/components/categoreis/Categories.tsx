@@ -12,7 +12,7 @@ const Categories = () => {
   } = useQuery({
     queryKey: ["categories"],
     queryFn: getAllCategories,
-    staleTime: 1000 * 60,
+    // staleTime: 1000 * 60,
   });
 
   if (isLoading) return <>{"Loading . . ."}</>;
