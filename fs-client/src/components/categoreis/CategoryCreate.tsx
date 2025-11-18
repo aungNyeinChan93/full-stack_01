@@ -32,11 +32,14 @@ const CategoryCreate = () => {
     mutate,
     data: newData,
     error,
+    reset,
   } = useMutation({
     mutationFn: (newCategory: CategorySchemaType) =>
       createNewCategory(newCategory),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["categories"] });
+    onSuccess() {
+      queryClient.invalidateQueries({
+        queryKey: ["categories"],
+      });
     },
   });
 
