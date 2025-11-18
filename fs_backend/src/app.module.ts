@@ -7,6 +7,7 @@ import { PrismaModule } from './prisma/prisma.module';
 import { UsersModule } from './users/users.module';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { APP_GUARD } from '@nestjs/core';
+import { CategoriesModule } from './categories/categories.module';
 
 @Module({
   controllers: [AppController],
@@ -34,7 +35,8 @@ import { APP_GUARD } from '@nestjs/core';
         ttl: 60000,
         limit: 50
       }
-    ])
+    ]),
+    CategoriesModule
   ],
 })
 export class AppModule { }
