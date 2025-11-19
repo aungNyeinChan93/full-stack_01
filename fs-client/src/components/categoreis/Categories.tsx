@@ -11,7 +11,10 @@ const Categories = () => {
     isLoading,
   } = useQuery({
     queryKey: ["categories"],
-    queryFn: () => getAllCategories(),
+    queryFn: ({
+      pageParam = "44be0c05-e4d1-4606-90a1-705adf8fc781",
+      queryKey,
+    }) => getAllCategories(pageParam as string),
     // staleTime: 1000 * 60,
     // refetchInterval: 1000,
   });

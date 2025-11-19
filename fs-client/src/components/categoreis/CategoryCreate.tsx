@@ -36,7 +36,9 @@ const CategoryCreate = () => {
   } = useMutation({
     mutationFn: (newCategory: CategorySchemaType) =>
       createNewCategory(newCategory),
-    onSuccess() {
+    onSuccess(data) {
+      alert(JSON.stringify(data, null, 2));
+      queryClient.setQueriesData({ queryKey: ["categories"] }, data);
       queryClient.invalidateQueries({
         queryKey: ["categories"],
       });
