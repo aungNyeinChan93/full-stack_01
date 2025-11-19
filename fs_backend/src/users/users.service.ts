@@ -11,6 +11,7 @@ import { UserPagination } from './types/user-pagination.types';
 
 @Injectable()
 export class UsersService {
+
   constructor(
     private prisma: PrismaService
   ) { }

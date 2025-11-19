@@ -8,6 +8,7 @@ import { UsersModule } from './users/users.module';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { APP_GUARD } from '@nestjs/core';
 import { CategoriesModule } from './categories/categories.module';
+import { PostsModule } from './posts/posts.module';
 
 @Module({
   controllers: [AppController],
@@ -36,7 +37,8 @@ import { CategoriesModule } from './categories/categories.module';
         limit: 50
       }
     ]),
-    CategoriesModule
+    CategoriesModule,
+    PostsModule
   ],
 })
 export class AppModule { }
