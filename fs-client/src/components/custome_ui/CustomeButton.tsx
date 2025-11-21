@@ -1,28 +1,7 @@
 import React, { ReactNode } from "react";
-import { tv, VariantProps } from "tailwind-variants";
+import { tv, VariantProps, ClassValue } from "tailwind-variants";
 
-const CustomeButton = ({
-  variant,
-  children,
-  className,
-}: {
-  children: ReactNode;
-  className: string;
-} & ButtonProps) => {
-  return (
-    <React.Fragment>
-      <button
-        type="button"
-        className={buttonStyles({ variant: variant, className })}
-      >
-        {children}
-      </button>
-    </React.Fragment>
-  );
-};
-
-export default CustomeButton;
-
+// variant style
 const buttonStyles = tv({
   base: "px-4 py-2 rounded my-2",
   variants: {
@@ -30,6 +9,7 @@ const buttonStyles = tv({
       primary: "bg-gray-400 text-white",
       secondary: "bg-indigo-400 text-white",
       danger: "bg-red-400 text-white",
+      pink: "bg-pink-600 text-white",
     },
     fontSize: {
       sm: "text-sm",
@@ -44,3 +24,23 @@ const buttonStyles = tv({
 });
 
 type ButtonProps = VariantProps<typeof buttonStyles>;
+
+const CustomeButton = ({
+  children,
+  className,
+  ...props
+}: {
+  children: ReactNode;
+  className?: ClassValue;
+} & ButtonProps &
+  React.ComponentProps<"button">) => {
+  return (
+    <React.Fragment>
+      <button {...props} type="button" className={buttonStyles({ ...props })}>
+        {children}
+      </button>
+    </React.Fragment>
+  );
+};
+
+export default CustomeButton;
