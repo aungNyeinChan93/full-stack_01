@@ -40,6 +40,7 @@ model User {
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
+  tasks      Task[]
 
   @@map("users")
 }
@@ -82,4 +83,15 @@ model Category {
   updated_at DateTime @updatedAt
 
   @@map("ccategories")
+}
+
+model Task {
+  id          String  @id @default(uuid())
+  name        String
+  isCompleted Boolean @default(false)
+  user        User?   @relation(fields: [user_id], references: [id])
+  user_id     String?
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 }

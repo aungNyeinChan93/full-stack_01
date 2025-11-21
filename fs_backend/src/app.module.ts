@@ -9,6 +9,7 @@ import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { APP_GUARD } from '@nestjs/core';
 import { CategoriesModule } from './categories/categories.module';
 import { PostsModule } from './posts/posts.module';
+import { TasksModule } from './tasks/tasks.module';
 
 @Module({
   controllers: [AppController],
@@ -38,7 +39,8 @@ import { PostsModule } from './posts/posts.module';
       }
     ]),
     CategoriesModule,
-    PostsModule
+    PostsModule,
+    TasksModule
   ],
 })
 export class AppModule { }
