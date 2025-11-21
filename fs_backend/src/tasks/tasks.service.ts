@@ -4,9 +4,10 @@
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable prettier/prettier */
 
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { Task, TaskCreate, TaskUpdate, TaskWithUser } from './types/tasks.types';
+import { UpdateTaskDto } from './dto/update-task.dto';
 
 @Injectable()
 export class TasksService {
@@ -23,19 +24,33 @@ export class TasksService {
     return task
   }
 
-  findAll() {
-    return `This action returns all tasks`;
+  async findAll(): Promise<TaskWithUser[]> {
+    const tasks = await this.prisma.task.findMany({
+      include: { user: true },
+      orderBy: { created_at: 'desc' },
+    })
+    return tasks
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} task`;
+  async findOne(id: string): Promise<TaskWithUser> {
+    const task = await this.prisma.task.findUnique({ where: { id }, include: { user: true } })
+    if (!task) throw new HttpException('task not found', HttpStatus.NOT_FOUND)
+    return task;
   }
 
-  update(id: number, updateTaskDto: TaskUpdate) {
-    return `This action updates a #${id} task`;
+  async update(id: string, updateTaskDto: TaskUpdate): Promise<Task> {
+    const task = await this.findOne(id);
+    if (!task) throw new NotFoundException('task Not Found');
+    const updateTask = await this.prisma.task.update({
+      data: { ...updateTaskDto },
+      where: { id },
+    })
+    return updateTask
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} task`;
+  async remove(id: string) {
+    const task = await this.findOne(id);
+    if (!task) throw new NotFoundException('task Not Found');
+    await this.prisma.task.delete({ where: { id } })
   }
 }

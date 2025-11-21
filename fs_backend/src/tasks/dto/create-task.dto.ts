@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { IsNotEmpty, IsOptional } from 'class-validator';
+import { IsBoolean, IsNotEmpty, IsOptional } from 'class-validator';
 
 export class CreateTaskDto {
     @IsOptional()
@@ -9,7 +9,8 @@ export class CreateTaskDto {
     name: string;
 
     @IsOptional()
-    isCompleted: boolean;
+    @IsBoolean()
+    isCompleted?: boolean;
 
     @IsOptional()
     user_id: string;
