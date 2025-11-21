@@ -27,7 +27,8 @@ const PostCreate = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isLoading },
+    formState: { errors, isLoading, isSubmitting },
+    reset,
   } = useForm<PostSchemType>({
     defaultValues: {
       body: "",
@@ -45,7 +46,8 @@ const PostCreate = () => {
       author_id: "f4f6782f-93df-4565-bb33-55594f767b77",
     };
     mutate(newPost);
-    if (newPost) {
+    if (!isSubmitting) {
+      reset();
       return router.push("/posts");
     }
   };
