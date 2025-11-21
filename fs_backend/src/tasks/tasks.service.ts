@@ -7,7 +7,6 @@
 import { HttpException, HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { Task, TaskCreate, TaskUpdate, TaskWithUser } from './types/tasks.types';
-import { UpdateTaskDto } from './dto/update-task.dto';
 
 @Injectable()
 export class TasksService {
@@ -51,6 +50,7 @@ export class TasksService {
   async remove(id: string) {
     const task = await this.findOne(id);
     if (!task) throw new NotFoundException('task Not Found');
-    await this.prisma.task.delete({ where: { id } })
+    await this.prisma.task.delete({ where: { id } });
+    return 'Delete success!'
   }
 }
